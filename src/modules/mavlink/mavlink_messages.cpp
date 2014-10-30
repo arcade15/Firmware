@@ -75,6 +75,9 @@
 #include <systemlib/err.h>
 #include <mavlink/mavlink_log.h>
 
+//added on 31-10-2014
+#include <uORB/topics/ca_trajectory_msg.h>
+
 #include "mavlink_messages.h"
 #include "mavlink_main.h"
 

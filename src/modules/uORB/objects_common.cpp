@@ -227,3 +227,7 @@ ORB_DEFINE(tecs_status, struct tecs_status_s);
 
 #include "topics/wind_estimate.h"
 ORB_DEFINE(wind_estimate, struct wind_estimate_s);
+
+//added on 31-10-2014
+#include "topics/ca_trajectory_msg.h"
+ORB_DEFINE(ca_trajectory_msg, struct ca_traj_struct_s);

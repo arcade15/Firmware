@@ -176,6 +176,10 @@ MavlinkReceiver::handle_message(mavlink_message_t *msg)
 		handle_message_manual_control(msg);
 		break;
 
+	case MAVLINK_MSG_ID_CA_TRAJECTORY:
+		handle_message_ca_trajectory_msg(msg);
+		break;
+
 	case MAVLINK_MSG_ID_HEARTBEAT:
 		handle_message_heartbeat(msg);
 		break;
@@ -1317,6 +1321,33 @@ MavlinkReceiver::handle_message_hil_state_quaternion(mavlink_message_t *msg)
 	}
 }
 
+//added on 31-10-2014
+void
+MavlinkReceiver::handle_message_ca_trajectory_msg(mavlink_message_t *msg)
+{
+	/* ca_trajectory */
+	mavlink_ca_trajectory_t traj;
+	mavlink_msg_ca_trajectory_decode(msg, &traj);
+
+	struct ca_traj_struct_s f;
+	memset(&f, 0, sizeof(f));
+
+	f.timestamp = hrt_absolute_time();
+	f.seq_id = traj.seq_id;
+	f.time_start_usec = traj.time_start_usec;
+	f.time_stop_usec = traj.time_stop_usec;
+	for(int i=0;i<28;i++)
+	f.coefficients[i] = traj.coefficients[i];
+
+	if (_ca_traj_msg_pub<= 0)
+	{
+			_ca_traj_msg_pub = orb_advertise(ORB_ID(ca_trajectory_msg), &f);
+		}
+	else
+		{
+			orb_publish(ORB_ID(ca_trajectory_msg), _ca_traj_msg_pub, &f);
+		}
+}
 
 /**
  * Receive data from UART.

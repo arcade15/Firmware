@@ -73,6 +73,9 @@
 #include <uORB/topics/battery_status.h>
 #include <uORB/topics/vehicle_force_setpoint.h>
 
+//added on 31-10-2014
+#include <uORB/topics/ca_trajectory_msg.h>
+
 #include "mavlink_ftp.h"
 
 class Mavlink;
@@ -128,6 +131,9 @@ private:
 	void handle_message_hil_gps(mavlink_message_t *msg);
 	void handle_message_hil_state_quaternion(mavlink_message_t *msg);
 
+	//added on 31-10-2014
+	void handle_message_ca_trajectory_msg(mavlink_message_t *msg);
+
 	void *receive_thread(void *arg);
 
 	mavlink_status_t status;
@@ -158,6 +164,10 @@ private:
 	orb_advert_t _telemetry_status_pub;
 	orb_advert_t _rc_pub;
 	orb_advert_t _manual_pub;
+
+	//added on 31-10-2014
+	orb_advert_t _ca_traj_msg_pub;
+
 	int _control_mode_sub;
 	int _hil_frames;
 	uint64_t _old_timestamp;
