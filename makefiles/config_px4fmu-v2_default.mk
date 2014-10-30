@@ -9,6 +9,11 @@
 ROMFS_ROOT	 = $(PX4_BASE)/ROMFS/px4fmu_common
 ROMFS_OPTIONAL_FILES = $(PX4_BASE)/Images/px4io-v2_default.bin
 
+#Test Own apps module
+MODULES		+= modules/px4_simple_app
+MODULES		+= modules/simple_app
+MODULES		+= modules/daemon
+
 #
 # Board support modules
 #
@@ -139,7 +144,7 @@ MODULES		+= modules/bottle_drop
 #MODULES		+= examples/math_demo
 # Tutorial code from
 # https://pixhawk.ethz.ch/px4/dev/hello_sky
-MODULES		+= examples/px4_simple_app
+#MODULES		+= examples/px4_simple_app
 
 # Tutorial code from
 # https://pixhawk.ethz.ch/px4/dev/daemon
